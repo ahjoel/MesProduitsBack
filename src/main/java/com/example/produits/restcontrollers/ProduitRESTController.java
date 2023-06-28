@@ -17,43 +17,48 @@ public class ProduitRESTController {
 	ProduitService produitService;
 	
 	//List of products
-	@GetMapping
+	@RequestMapping(path="all", method = RequestMethod.GET)
 	public List<Produit> getAllProduits()
 	{
 		return produitService.getAllProduits();
 	}
 	
 	// One product with id
-	@GetMapping("/{id}")
+	//@GetMapping("/{id}")
+	@RequestMapping(value="/getbyid/{id}", method = RequestMethod.GET)
 	public Produit getProduitById(@PathVariable("id") Long id) {
 		return produitService.getProduit(id);
 	}
 	
 	// Create product
-	@PostMapping
+	//@PostMapping
+	@RequestMapping(value="/addprod", method = RequestMethod.POST)
 	public Produit createProduit(@RequestBody Produit produit) {
 		return produitService.saveProduit(produit);
 	}
 	
 	// Update product
-	@PutMapping
+	//@PutMapping
+	@RequestMapping(value="/updateprod", method=RequestMethod.PUT)
 	public Produit updateProduit(@RequestBody Produit produit) {
 		return produitService.updateProduit(produit);
 	}
 	
 	// Delete product with id
-	@DeleteMapping("/{id}")
+	//@DeleteMapping("/{id}")
+	@RequestMapping(value="/delprod/{id}", method=RequestMethod.DELETE)
 	public void deleteProduit(@PathVariable("id") Long id) {
 		produitService.deleteProduitById(id);
 	}
 	
 	// Product with categorie_related with ID Cat
-	@GetMapping("/prodscat/{idCat}")
+	//@GetMapping("/prodscat/{idCat}")
+	@RequestMapping(value="/prodscat/{idCat}", method = RequestMethod.PUT)
 	public List<Produit> getProduitsByCatId(@PathVariable("idCat") Long idCat) {
 		return produitService.findByCategorieIdCat(idCat);
 	}
 
-	@RequestMapping(value = "/prodsByName/{nom}", method = RequestMethod.GET)
+	@RequestMapping(value="/prodsByName/{nom}", method = RequestMethod.GET)
 	public List<Produit> findByNomProduitContains(@PathVariable("nom") String nom){
 		return produitService.findByNomProduitContains(nom);
 	}
