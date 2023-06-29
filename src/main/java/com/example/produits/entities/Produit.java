@@ -2,11 +2,7 @@ package com.example.produits.entities;
 
 import java.util.Date;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class Produit {
@@ -22,7 +18,11 @@ public class Produit {
 	
 	@ManyToOne
 	private Categorie categorie;
-	
+
+	@OneToOne
+	private Image image;
+
+
 	public Produit() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -61,6 +61,13 @@ public class Produit {
 		this.dateCreation = dateCreation;
 	}
 
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
+	}
 
 	@Override
 	public String toString() {
