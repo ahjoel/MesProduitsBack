@@ -27,7 +27,7 @@ public class Image {
     @Lob
     private byte[] image;
 
-    @OneToOne
-    private Produit produit;
+    /*@OneToOne
+    private Produit produit;*/
 
 }

@@ -15,12 +15,13 @@ public class Produit {
 	private String nomProduit;
 	private Double prixProduit;
 	private Date dateCreation;
-	
+	private String imagePath;
+
 	@ManyToOne
 	private Categorie categorie;
 
-	@OneToOne
-	private Image image;
+	/*@OneToOne
+	private Image image;*/
 
 
 	public Produit() {
@@ -61,13 +62,13 @@ public class Produit {
 		this.dateCreation = dateCreation;
 	}
 
-	public Image getImage() {
+	/*public Image getImage() {
 		return image;
 	}
 
 	public void setImage(Image image) {
 		this.image = image;
-	}
+	}*/
 
 	@Override
 	public String toString() {
@@ -82,7 +83,13 @@ public class Produit {
 	public void setCategorie(Categorie categorie) {
 		this.categorie = categorie;
 	}
-	
-	
-	
+
+
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
 }

@@ -1,13 +1,18 @@
 package com.example.produits.restcontrollers;
 
 import com.example.produits.entities.Image;
+import com.example.produits.entities.Produit;
+import org.springframework.http.MediaType;
 import com.example.produits.service.ImageService;
+import com.example.produits.service.ProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 @RestController
 @RequestMapping("/api/image")
@@ -15,6 +20,9 @@ import java.io.IOException;
 public class ImageRestController {
     @Autowired
     ImageService imageService ;
+
+    @Autowired
+    ProduitService produitService;
 
     @RequestMapping(value = "/upload" , method = RequestMethod.POST)
     public Image uploadImage(@RequestParam("image") MultipartFile file) throws IOException {
@@ -39,4 +47,28 @@ public class ImageRestController {
     public Image UpdateImage(@RequestParam("image")MultipartFile file) throws IOException {
         return imageService.uplaodImage(file);
     }
+
+    @RequestMapping(value = "/uploadFS/{id}" , method = RequestMethod.POST)
+    public void uploadImageFS(@RequestParam("image") MultipartFile
+                                      file,@PathVariable("id") Long id) throws IOException {
+
+        Produit p = produitService.getProduit(id);
+        p.setImagePath(id+".jpg");
+
+        Files.write(Paths.get(System.getProperty("user.home")+"/Pictures/MesProduits/"+p.getImagePath())
+                , file.getBytes());
+        produitService.saveProduit(p);
+
+    }
+
+    @RequestMapping(value = "/loadfromFS/{id}" ,
+            method = RequestMethod.GET,
+            produces = MediaType.IMAGE_JPEG_VALUE)
+    public byte[] getImageFS(@PathVariable("id") Long id) throws IOException {
+
+        Produit p = produitService.getProduit(id);
+        return Files.readAllBytes(Paths.get(System.getProperty("user.home")+"/Pictures/MesProduits/"+p.getImagePath()));
+    }
+
+
 }
