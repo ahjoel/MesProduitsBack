@@ -20,8 +20,8 @@ public class Produit {
 	@ManyToOne
 	private Categorie categorie;
 
-	/*@OneToOne
-	private Image image;*/
+	@OneToOne
+	private Image image;
 
 
 	public Produit() {
@@ -62,13 +62,13 @@ public class Produit {
 		this.dateCreation = dateCreation;
 	}
 
-	/*public Image getImage() {
+	public Image getImage() {
 		return image;
 	}
 
 	public void setImage(Image image) {
 		this.image = image;
-	}*/
+	}
 
 	@Override
 	public String toString() {
